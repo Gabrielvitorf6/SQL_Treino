@@ -402,3 +402,232 @@ CREATE TABLE IF NOT EXISTS `prisonsystem_DB`.`MEETING_AUDIT` (
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- Ativa o schema
+USE `prisonsystem_DB`;
+
+-- -----------------------------------------------------
+-- Inserindo mais dados
+-- -----------------------------------------------------
+
+USE `prisonsystem_DB`;
+
+-- -----------------------------------------------------
+-- Prisão 20: Penitenciária "Nestor Canoa" de Mirandópolis II (SP)
+-- -----------------------------------------------------
+INSERT INTO `prisonsystem_DB`.`PRISION` (`prision_id`, `prision_name`, `prision_adress`, `prision_adressnumber`, `prision_cep`, `prision_city`, `prision_state`, `prision_country`, `prision_capacity`)
+VALUES
+(20, 'Penitenciária II de Mirandópolis', 'Rod. Mal. Rondon', 632, '16800000', 'Mirandópolis', 'SP', 'Brasil', 1247);
+
+INSERT INTO `prisonsystem_DB`.`PRISION_AUDIT` (`prision_id`) VALUES (20);
+
+INSERT INTO `prisonsystem_DB`.`JAIL` (`jail_id`, `jail_capacity`, `jail_observations`, `PRISION_prision_id`)
+VALUES
+(20, '120', 'Pavilhão 1', 20),
+(21, '120', 'Pavilhão 2', 20);
+
+INSERT INTO `prisonsystem_DB`.`JAIL_AUDIT` (`jail_id`, `prision_id`) VALUES (20, 20), (21, 20);
+
+INSERT INTO `prisonsystem_DB`.`EMPLOYEE` (`employee_id`, `employee_name`, `employee_role`, `employee_adress`, `employee_adressnumber`, `employee_city`, `employee_state`, `employee_country`, `employee_cep`, `employee_birthdate`, `employee_bloodtype`, `employee_healthobservations`, `prision_id`)
+VALUES
+(20, 'Fábio Junqueira', 'Guarda', 'Rua Central', 100, 'Mirandópolis', 'SP', 'Brasil', '16800100', '1988-05-10', 'O+', 'Nenhuma', 20);
+
+INSERT INTO `prisonsystem_DB`.`EMPLOYEE_AUDIT` (`employee_id`, `prision_id`) VALUES (20, 20);
+
+INSERT INTO `prisonsystem_DB`.`PRISIONER` (`prisioner_id`, `prisioner_name`, `prisioner_adress`, `prisioner_adressnumber`, `prisioner_state`, `prisioner_country`, `prisioner_city`, `prisioner_birthdate`, `prisioner_bloodtype`, `prisioner_healthobservations`, `prisioner_entrance`, `prisioner_exit`, `prision_id`, `jail_id`, `prisioner_cep`)
+VALUES
+(20, 'Ricardo Lopes', 'Rua Fictícia', 15, 'SP', 'Brasil', 'Araçatuba', '1991-03-12', 'B+', 'Nenhuma', '2022-01-20', NULL, 20, 20, '16010010');
+
+INSERT INTO `prisonsystem_DB`.`PRISIONER_AUDIT` (`prisioner_id`, `prision_id`) VALUES (20, 20);
+
+-- -----------------------------------------------------
+-- Prisão 21: Penitenciária de Araraquara (SP)
+-- -----------------------------------------------------
+INSERT INTO `prisonsystem_DB`.`PRISION` (`prision_id`, `prision_name`, `prision_adress`, `prision_adressnumber`, `prision_cep`, `prision_city`, `prision_state`, `prision_country`, `prision_capacity`)
+VALUES
+(21, 'Penitenciária de Araraquara', 'Rod. Washington Luiz', 55, '14803100', 'Araraquara', 'SP', 'Brasil', 1124);
+
+INSERT INTO `prisonsystem_DB`.`PRISION_AUDIT` (`prision_id`) VALUES (21);
+
+INSERT INTO `prisonsystem_DB`.`JAIL` (`jail_id`, `jail_capacity`, `jail_observations`, `PRISION_prision_id`)
+VALUES
+(22, '150', 'Ala A', 21),
+(23, '150', 'Ala B', 21);
+
+INSERT INTO `prisonsystem_DB`.`JAIL_AUDIT` (`jail_id`, `prision_id`) VALUES (22, 21), (23, 21);
+
+INSERT INTO `prisonsystem_DB`.`EMPLOYEE` (`employee_id`, `employee_name`, `employee_role`, `employee_adress`, `employee_adressnumber`, `employee_city`, `employee_state`, `employee_country`, `employee_cep`, `employee_birthdate`, `employee_bloodtype`, `employee_healthobservations`, `prision_id`)
+VALUES
+(21, 'Juliana Ramos', 'Diretora', 'Av. dos Bandeirantes', 800, 'Araraquara', 'SP', 'Brasil', '14800100', '1979-11-01', 'A-', 'Nenhuma', 21);
+
+INSERT INTO `prisonsystem_DB`.`EMPLOYEE_AUDIT` (`employee_id`, `prision_id`) VALUES (21, 21);
+
+INSERT INTO `prisonsystem_DB`.`PRISIONER` (`prisioner_id`, `prisioner_name`, `prisioner_adress`, `prisioner_adressnumber`, `prisioner_state`, `prisioner_country`, `prisioner_city`, `prisioner_birthdate`, `prisioner_bloodtype`, `prisioner_healthobservations`, `prisioner_entrance`, `prisioner_exit`, `prision_id`, `jail_id`, `prisioner_cep`)
+VALUES
+(21, 'Márcio Ribeiro', 'Rua Fictícia', 33, 'SP', 'Brasil', 'São Carlos', '1995-09-09', 'AB+', 'Nenhuma', '2024-02-15', NULL, 21, 22, '13560010');
+
+INSERT INTO `prisonsystem_DB`.`PRISIONER_AUDIT` (`prisioner_id`, `prision_id`) VALUES (21, 21);
+
+-- -----------------------------------------------------
+-- Eventos
+-- -----------------------------------------------------
+INSERT INTO `prisonsystem_DB`.`OCURRENCY` (`ocurrency_id`, `ocurrency_name`, `ocurrency_observation`, `ocurrency_datetime`, `prision_id`, `prisioner_id`, `jail_id`, `employee_id`)
+VALUES
+(20, 'Apreensão de material', 'Material ilícito encontrado no Pavilhão 1.', '2025-11-20 14:00:00', 20, 20, 20, 20);
+
+INSERT INTO `prisonsystem_DB`.`OCURRENCY_AUDIT` (`ocurrency_id`) VALUES (20);
+
+INSERT INTO `prisonsystem_DB`.`MEETING` (`meeting_id`, `meeting_personname`, `meeting_observations`, `meeting_datetime`, `prisioner_id`, `prision_id`)
+VALUES
+(20, 'Renata Ribeiro', 'Mãe do detento', '2025-11-21 10:00:00', 21, 21);
+
+INSERT INTO `prisonsystem_DB`.`MEETING_AUDIT` (`meeting_id`, `prisioner_id`, `prision_id`) VALUES (20, 21, 21);
+
+INSERT INTO `prisonsystem_DB`.`PRISIONER_ACTIVITY` (`prisioneractivity_id`, `prisioneractivity_name`, `prisioneractivity_observations`, `prisioneractivity_datetime`, `prisioneractivity_reductiondays`, `prisioner_id`, `prision_id`, `jail_id`)
+VALUES
+(20, 'Limpeza', 'Limpeza da Ala A.', '2025-11-20 08:00:00', '1', 21, 21, 22);
+
+INSERT INTO `prisonsystem_DB`.`PRISIONERACTIVITY_AUDIT` (`prisioneractivity_id`, `prisioner_id`, `prision_id`, `jail_id`) VALUES (20, 21, 21, 22);
+
+INSERT INTO `prisonsystem_DB`.`MOVEMENT` (`movement_id`, `movement_name`, `movement_description`, `movement_adress`, `movement_adressnumber`, `movement_cep`, `movement_datetime`, `prision_id`, `employee_id`)
+VALUES
+(20, 'Transferência Hospitalar', 'Consulta de rotina Ricardo Lopes.', 'Santa Casa', 10, '16800000', '2025-11-21 13:00:00', 20, 20);
+
+INSERT INTO `prisonsystem_DB`.`MOVEMENT_AUDIT` (`movement_id`) VALUES (20);
+
+INSERT INTO `prisonsystem_DB`.`prisioner_movement` (`prisioner_id`, `prision_id`, `movement_id`)
+VALUES
+(20, 20, 20);
+
+-- Adicionando mais dados
+-- -----------------------------------------------------
+-- Prisão 30: Complexo Penitenciário de Gericinó (Bangu) - RJ
+-- -----------------------------------------------------
+INSERT INTO `prisonsystem_DB`.`PRISION` (`prision_id`, `prision_name`, `prision_adress`, `prision_adressnumber`, `prision_cep`, `prision_city`, `prision_state`, `prision_country`, `prision_capacity`)
+VALUES
+(30, 'Complexo de Gericinó - Bangu I', 'Rua Oitocentos', 0, '21853001', 'Rio de Janeiro', 'RJ', 'Brasil', 2000);
+
+INSERT INTO `prisonsystem_DB`.`PRISION_AUDIT` (`prision_id`) VALUES (30);
+
+INSERT INTO `prisonsystem_DB`.`JAIL` (`jail_id`, `jail_capacity`, `jail_observations`, `PRISION_prision_id`)
+VALUES
+(30, '150', 'Galeria A', 30),
+(31, '150', 'Galeria B', 30);
+
+INSERT INTO `prisonsystem_DB`.`JAIL_AUDIT` (`jail_id`, `prision_id`) VALUES (30, 30), (31, 30);
+
+INSERT INTO `prisonsystem_DB`.`EMPLOYEE` (`employee_id`, `employee_name`, `employee_role`, `employee_adress`, `employee_adressnumber`, `employee_city`, `employee_state`, `employee_country`, `employee_cep`, `employee_birthdate`, `employee_bloodtype`, `employee_healthobservations`, `prision_id`)
+VALUES
+(30, 'Sérgio Moraes', 'Guarda', 'Rua Fictícia', 1, 'Rio de Janeiro', 'RJ', 'Brasil', '21000100', '1980-01-01', 'A+', 'Nenhuma', 30),
+(31, 'Dra. Beatriz Costa', 'Psicóloga', 'Rua Fictícia', 2, 'Rio de Janeiro', 'RJ', 'Brasil', '21000200', '1985-02-02', 'O-', 'Nenhuma', 30);
+
+INSERT INTO `prisonsystem_DB`.`EMPLOYEE_AUDIT` (`employee_id`, `prision_id`) VALUES (30, 30), (31, 30);
+
+INSERT INTO `prisonsystem_DB`.`PRISIONER` (`prisioner_id`, `prisioner_name`, `prisioner_adress`, `prisioner_adressnumber`, `prisioner_state`, `prisioner_country`, `prisioner_city`, `prisioner_birthdate`, `prisioner_bloodtype`, `prisioner_healthobservations`, `prisioner_entrance`, `prisioner_exit`, `prision_id`, `jail_id`, `prisioner_cep`)
+VALUES
+(30, 'Marcelo Dutra', 'Rua Fictícia', 10, 'RJ', 'Brasil', 'Rio de Janeiro', '1989-05-10', 'B+', 'Nenhuma', '2020-05-10', NULL, 30, 30, '21010101'),
+(31, 'Rodrigo Fernandes', 'Av. Fictícia', 20, 'RJ', 'Brasil', 'Niterói', '1993-07-20', 'A-', 'Nenhuma', '2021-07-20', NULL, 30, 31, '21020202');
+
+INSERT INTO `prisonsystem_DB`.`PRISIONER_AUDIT` (`prisioner_id`, `prision_id`) VALUES (30, 30), (31, 30);
+
+-- -----------------------------------------------------
+-- Prisão 31: Complexo Penitenciário de Pedrinhas (MA)
+-- -----------------------------------------------------
+INSERT INTO `prisonsystem_DB`.`PRISION` (`prision_id`, `prision_name`, `prision_adress`, `prision_adressnumber`, `prision_cep`, `prision_city`, `prision_state`, `prision_country`, `prision_capacity`)
+VALUES
+(31, 'Complexo Penitenciário de Pedrinhas', 'BR-135, Km 12', 12, '65095602', 'São Luís', 'MA', 'Brasil', 2500);
+
+INSERT INTO `prisonsystem_DB`.`PRISION_AUDIT` (`prision_id`) VALUES (31);
+
+INSERT INTO `prisonsystem_DB`.`JAIL` (`jail_id`, `jail_capacity`, `jail_observations`, `PRISION_prision_id`)
+VALUES
+(32, '300', 'Pavilhão Central', 31);
+
+INSERT INTO `prisonsystem_DB`.`JAIL_AUDIT` (`jail_id`, `prision_id`) VALUES (32, 31);
+
+INSERT INTO `prisonsystem_DB`.`EMPLOYEE` (`employee_id`, `employee_name`, `employee_role`, `employee_adress`, `employee_adressnumber`, `employee_city`, `employee_state`, `employee_country`, `employee_cep`, `employee_birthdate`, `employee_bloodtype`, `employee_healthobservations`, `prision_id`)
+VALUES
+(32, 'Ana Furtado', 'Guarda', 'Av. dos Holandeses', 10, 'São Luís', 'MA', 'Brasil', '65000100', '1991-10-10', 'AB-', 'Nenhuma', 31);
+
+INSERT INTO `prisonsystem_DB`.`EMPLOYEE_AUDIT` (`employee_id`, `prision_id`) VALUES (32, 31);
+
+INSERT INTO `prisonsystem_DB`.`PRISIONER` (`prisioner_id`, `prisioner_name`, `prisioner_adress`, `prisioner_adressnumber`, `prisioner_state`, `prisioner_country`, `prisioner_city`, `prisioner_birthdate`, `prisioner_bloodtype`, `prisioner_healthobservations`, `prisioner_entrance`, `prisioner_exit`, `prision_id`, `jail_id`, `prisioner_cep`)
+VALUES
+(32, 'Bruno Gomes', 'Rua Fictícia', 30, 'MA', 'Brasil', 'São Luís', '1990-08-01', 'O+', 'Nenhuma', '2023-08-01', NULL, 31, 32, '65010101');
+
+INSERT INTO `prisonsystem_DB`.`PRISIONER_AUDIT` (`prisioner_id`, `prision_id`) VALUES (32, 31);
+
+-- -----------------------------------------------------
+-- Eventos para as novas prisões
+-- -----------------------------------------------------
+INSERT INTO `prisonsystem_DB`.`OCURRENCY` (`ocurrency_id`, `ocurrency_name`, `ocurrency_observation`, `ocurrency_datetime`, `prision_id`, `prisioner_id`, `jail_id`, `employee_id`)
+VALUES
+(30, 'Posse de item proibido', 'Encontrado telefone celular na cela do detento Marcelo Dutra.', '2025-11-25 10:00:00', 30, 30, 30, 30);
+
+INSERT INTO `prisonsystem_DB`.`OCURRENCY_AUDIT` (`ocurrency_id`) VALUES (30);
+
+INSERT INTO `prisonsystem_DB`.`MEETING` (`meeting_id`, `meeting_personname`, `meeting_observations`, `meeting_datetime`, `prisioner_id`, `prision_id`)
+VALUES
+(30, 'Cláudia Fernandes', 'Esposa', '2025-11-26 14:00:00', 31, 30);
+
+INSERT INTO `prisonsystem_DB`.`MEETING_AUDIT` (`meeting_id`, `prisioner_id`, `prision_id`) VALUES (30, 31, 30);
+
+INSERT INTO `prisonsystem_DB`.`PRISIONER_ACTIVITY` (`prisioneractivity_id`, `prisioneractivity_name`, `prisioneractivity_observations`, `prisioneractivity_datetime`, `prisioneractivity_reductiondays`, `prisioner_id`, `prision_id`, `jail_id`)
+VALUES
+(30, 'Oficina Mecânica', 'Manutenção dos veículos.', '2025-11-25 09:00:00', '2', 30, 30, 30);
+
+INSERT INTO `prisonsystem_DB`.`PRISIONERACTIVITY_AUDIT` (`prisioneractivity_id`, `prisioner_id`, `prision_id`, `jail_id`) VALUES (30, 30, 30, 30);
+
+INSERT INTO `prisonsystem_DB`.`EMPLOYEE_ACTIVITY` (`employeeactivity_id`, `employeeactivity_name`, `employeeactivity_description`, `employee_id`, `prision_id`, `employeeactivity_datetime`)
+VALUES
+(30, 'Sessão de Terapia', 'Sessão individual com detento Rodrigo Fernandes.', 31, 30, '2025-11-25 15:00:00');
+
+INSERT INTO `prisonsystem_DB`.`MOVEMENT` (`movement_id`, `movement_name`, `movement_description`, `movement_adress`, `movement_adressnumber`, `movement_cep`, `movement_datetime`, `prision_id`, `employee_id`)
+VALUES
+(30, 'Transferência de Prisioneiro', 'Transferência do detento Bruno Gomes para Pedrinhas.', 'Aeroporto', 1, '65000000', '2023-08-01 10:00:00', 31, 32);
+
+INSERT INTO `prisonsystem_DB`.`MOVEMENT_AUDIT` (`movement_id`) VALUES (30);
+
+INSERT INTO `prisonsystem_DB`.`prisioner_movement` (`prisioner_id`, `prision_id`, `movement_id`)
+VALUES
+(32, 31, 30);
+
+
+-- Atualizando dados da prisão: CEP de INT para Varchar pois o SQL estava retirando o 0 dos CEPS de SP
+
+UPDATE Prision set prision_cep= "02029001" WHERE prision_id = 5;
+
+ALTER TABLE `prision`
+modify COLUMN  `prision_cep` varchar(8) not null; 
+
+ALTER TABLE `employee`
+modify COLUMN  `employee_cep` varchar(8) not null;
+
+ALTER TABLE `movement`
+modify COLUMN  `movement_cep` varchar(8) not null;
+
+ALTER TABLE `prisioner`
+modify COLUMN  `prisioner_cep` varchar(8) not null;
+-- Deletando dados: Deletando Penitenciárias que criei errado
+
+delete from prision
+ WHERE `prision_id` = '6';
+
+-- Adicionando Foreign Key do Presidiário em Movement
+ 
+ Alter table `movement` add column prisioner_id INT;
+ 
+ alter table `movement`
+ add constraint fk_movement_prisioner foreign key(prisioner_id) references prisioner(prisioner_id);
+ 
+ -- Criando movimento com dados "reais"
+ 
+INSERT INTO `prisonsystem_DB`.`MOVEMENT` (`movement_id`, `movement_name`, `movement_description`, `movement_adress`, `movement_adressnumber`, `movement_cep`, `movement_datetime`, `prision_id`, `employee_id`)
+VALUES
+(default, 'Transferência de presidios', 'Transferencia do preso Ricardo Lopes para o Complexo Penitenciário de Pedrinhas, escoltado por Fábio Junqueira', 'BR-135, Km 12', 12, '65095602', '2025-12-14 23:15:00', 20, 20);
+ 
+ 
+ 
+
+
+
